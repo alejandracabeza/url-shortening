@@ -1,0 +1,73 @@
+.logo{
+    padding: 10px;
+    float: left;
+}
+
+.menuIcon{
+display: none;
+}
+
+.menu {
+
+    img{
+        padding: 8px;
+    }
+
+    ul{
+        list-style-type: none;
+        justify-content: space-between;
+
+        li{
+            float: left;
+            display: block;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: #bfbfbf;
+        }
+
+        li:nth-last-child(-n+2){
+            float: right;
+        }
+        .signupBtn{
+            background-color: hsl(180, 66%, 49%);
+            border-radius: 16px;
+            color: #ffff;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .menuIcon{
+        display: inline;
+        width: 26px;
+        float: right;
+        padding: 10px 20px 0 0;
+    }
+
+    .menu{
+        overflow: hidden;
+        background-color: #333;
+        margin: 34px;
+        border-radius: 16px;
+        visibility: hidden;
+
+        ul{
+            padding: 0px;
+        
+            li{
+                float: none;
+                color: white;
+            }
+
+            li:nth-last-child(-n+2){
+                float: none;
+            }
+
+            .signupBtn{
+                margin: 20px;
+            }
+        }
+    }
+  }
