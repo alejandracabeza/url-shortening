@@ -1,0 +1,14 @@
+
+.shortenerContainer{
+    width: 100vw;
+    background-image: url(../../src/assets/bg-shorten-desktop.svg);
+    background-color: rgb(73, 2, 114);
+    height: 180px;
+    position: absolute;
+    margin: 44px 0;
+    display: flex;
+
+    input{
+        margin: auto;
+    }
+}
