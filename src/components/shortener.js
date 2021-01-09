@@ -3,11 +3,13 @@ import '../styles/shortener.scss'
 
 function Shortener(props) {
     const [url, setUrl] = useState([]);
+    const [resultList, setResultList] = useState([]);
 
     const showResultURL = (result) => {
-            let tempUrl = url;
+        console.log("ffh", result)
+            let tempUrl = resultList;
             tempUrl.push(result);
-            setUrl(tempUrl)
+            setResultList(tempUrl);
     }
 
     const callApi = (url) => {
@@ -15,16 +17,11 @@ function Shortener(props) {
       .then(res => res.json())
       .then(
         (result) => {
+            console.log("made call")
         showResultURL(result.result.short_link)
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
+         console.log("Error retrieving information")
         }
       )
     }
@@ -43,8 +40,7 @@ function Shortener(props) {
         <div className="shortenerContainer">
           <input className="shortenerInput" onChange={() => onChangeUrl()} />
           <ul>
-              {url.map((i) => {
-                  console.log(i)
+              {resultList && resultList.map((i) => {
               return <li key={i}>{i}</li>
               })}
           </ul>
