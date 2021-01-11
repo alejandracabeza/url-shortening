@@ -4,11 +4,33 @@
     background-image: url(../../src/assets/bg-shorten-desktop.svg);
     background-color: rgb(73, 2, 114);
     height: 180px;
-    position: absolute;
     margin: 44px 0;
-    display: flex;
 
     input{
-        margin: auto;
+        margin: auto 30px;
+        width: 70vw;
+        height: 5vh;
+        border-radius: 7px;
+        border: none;
+    }
+
+    button{
+        align-self: center;
+        border-radius: 7px;
+        border: none;
+        background-color: #2acfcf;
+        color: #ffffff;
+        padding: 9px;
+        width: 14vw;
+    }
+
+    ul{
+        list-style: none;
+
+        li{
+            display: flex;
+            justify-content: space-between;
+        }
+
     }
 }

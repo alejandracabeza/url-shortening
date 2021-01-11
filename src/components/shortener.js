@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
 import '../styles/shortener.scss'
+import React, { Component } from 'react';
 
-function Shortener(props) {
-    const [url, setUrl] = useState([]);
-    const [resultList, setResultList] = useState([]);
+class Shortener extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {resultList: []};
+      }
 
-    const showResultURL = (result) => {
-        console.log("ffh", result)
-            let tempUrl = resultList;
-            tempUrl.push(result);
-            setResultList(tempUrl);
+     showResultURL = (originalUrl, result) => {
+            let tempUrl = this.state.resultList;
+            tempUrl.push({"originalUrl": originalUrl,
+            "shortUrl": result
+        });
+           this.setState({
+            resultList: tempUrl
+          });
     }
 
-    const callApi = (url) => {
+     callApi = (url) => {
         fetch(`https://api.shrtco.de/v2/shorten?url=${url}`)
       .then(res => res.json())
       .then(
         (result) => {
             console.log("made call")
-        showResultURL(result.result.short_link)
+            console.log("url", url)
+        this.showResultURL(url, result.result.short_link)
         },
         (error) => {
          console.log("Error retrieving information")
@@ -26,26 +32,36 @@ function Shortener(props) {
       )
     }
 
-    const onChangeUrl = () => {
+     onClickShortenLink = () => {
         let validUrl = new RegExp(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi);
         let value = document.querySelector(".shortenerInput").value;
         if (value.match(validUrl)){
-            callApi(value);
+            this.callApi(value);
         } else{
             console.log("not valid")
         }
     }
 
-    return (
-        <div className="shortenerContainer">
-          <input className="shortenerInput" onChange={() => onChangeUrl()} />
-          <ul>
-              {resultList && resultList.map((i) => {
-              return <li key={i}>{i}</li>
-              })}
-          </ul>
-        </div>  
-    )
-  }
+    render() {
+        return (
+            <div>
+                <div  className="shortenerContainer">
+                    <input className="shortenerInput" placeholder="Shorten a link here..." />
+                    <button onClick={()=>this.onClickShortenLink()}>Shorten it!</button>
+                </div>
+  
+                <ul>
+                {this.state.resultList.map((i, key) => (
+                     <li key={key}>
+                         <div><p>{i.originalUrl}</p><p>{i.shortUrl}</p></div>
+                         <button onClick={() => {navigator.clipboard.writeText(i.shortUrl)}}>Copy</button>
+                         
+                     </li>
+                ))}
+                </ul>
+            </div>  
+            )
+    }
+}
 
   export default Shortener;
